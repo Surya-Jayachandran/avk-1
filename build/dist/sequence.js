@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.MySequence=void 0;const rest_1=require("@loopback/rest");class MySequence extends rest_1.MiddlewareSequence{}exports.MySequence=MySequence;
