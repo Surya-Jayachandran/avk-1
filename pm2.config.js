@@ -1,6 +1,6 @@
 module.exports = {
-  apps : [{
+  apps: [{
     name: "mws-dconag-api",
-    script: "./index.js"
+    script: "./dist/index.js"
   }]
 }

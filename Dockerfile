@@ -29,4 +29,5 @@ RUN npm install --omit=dev
 # Expose application port
 EXPOSE ${PORT}
 
-CMD [ "pm2-runtime", "start", "pm2.config.js" ]
+CMD [ "pm2-runtime", "start", "dist/index.js", "--name", "mws-dconag-api" ]
+

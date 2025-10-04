@@ -1,43 +1,39 @@
 #!/bin/bash
-# Build direcotry
+# Build directory
 buildFolder="build"
 
-# Check for build directory, if found delete it using the rm command and create new build directory ##
-[ -d "$buildFolder" ] && rm -r "$buildFolder"; mkdir "$buildFolder"
+# Recreate build directory
+[ -d "$buildFolder" ] && rm -rf "$buildFolder"
+mkdir "$buildFolder"
 
 # Install dependencies
-# npm install -g @loopback/cli
 npm install
 
-# To make the build of the application
+# Build the application (assuming it outputs to dist/)
 npm run rebuild
 
-# Copy package.json file to the build directory
-cp package*.json $buildFolder/
+# Copy package files
+cp package*.json "$buildFolder/"
 
-# Check firebase.*.json file exist or not
+# Copy Firebase configs if present
 if ls firebase*.json 1> /dev/null 2>&1; then
-  # Copy firebase.*.json file to the build directory
   cp firebase*.json "$buildFolder/"
 fi
 
-# Copy pm2.config.js file to the build directory
-cp pm2.config.js $buildFolder/
+# Copy PM2 config
+cp pm2.config.js "$buildFolder/"
 
-# Copy dist directory to the build directory
-cp -r release/ $buildFolder/dist
+# Copy dist (compiled app)
+cp -r dist "$buildFolder/dist"
 
-# Copy pulbic directory to the build directory
-cp -rf public/ $buildFolder/public
+# Copy public folder
+cp -r public "$buildFolder/public"
 
-# Remove test folder
-rm -rf $buildFolder/__tests__
+# Copy migration script
+cp migrate.sh "$buildFolder/"
 
-# Make the logs directory fot the logger service
-mkdir $buildFolder/logs/
+# Make logs directory
+mkdir "$buildFolder/logs"
 
-# To make a copy of migrate script to build directory
-cp migrate.sh $buildFolder/
-
-# Cleanup directory
+# Cleanup local build artifacts
 rm -rf dist release
